@@ -23,7 +23,7 @@ app .get("/tasks",(req,res)=>{
 //          ?key=value&key=value
 app.get("/filter",(req,res)=>{
     console.log(req.query);
-    Todo.find({isCompleteted:req.query.isCompleteted},(err,data)=>{
+    Todo.find({isCompleted:req.query.isCompleted},(err,data)=>{
         if(err){
             console.log("ERRO: ",err);
         }else{
@@ -35,7 +35,7 @@ app.get("/filter",(req,res)=>{
 /*
 the up endpoint is replace to these two
 app .get("/tasks/done",(req,res)=>{
-    Todo.find({isCompleteted:true},(err,data)=>{
+    Todo.find({isCompleted:true},(err,data)=>{
         if(err){
             console.log("ERRO: ",err);
         }else{
@@ -45,7 +45,7 @@ app .get("/tasks/done",(req,res)=>{
 });
 
 app.get("/tasks/pending",(req,res)=>{
-    Todo.find({isCompleteted:false},(err,data)=>{
+    Todo.find({isCompleted:false},(err,data)=>{
         if(err){
             console.log("ERRO: ",err);
         }else{
@@ -54,7 +54,40 @@ app.get("/tasks/pending",(req,res)=>{
     });
 });
 */
+app.delete("/tasks",(req,res)=>{
+    //console.log("37:", req.params.id);
+    Todo.deleteMany({isCompleted:true},(err,deleteObj)=>{
+        
+      if (err) {
+          console.log("ERROR: ",err);
+      }else{
+          deleteObj.deletedCount === 0
+          ?  res.status(404).json ("There is no comoleted todo found")
+          :  res.json("Delete all completed Todo Successfully")
+      }
+})
+    // deleted more than one document
+}); 
 
+app.put("/tasks/:id/:isCompleted", (req, res) => {
+    console.log("124:", req.params);
+    Todo.updateOne(
+      { _id: req.params.id },
+      { isCompleted: req.params.isCompleted },
+      (err, updateObj) => {
+        if (err) {
+          // console.log("ERROR: ", err);
+          res.status(400).json(err);
+        } else {
+          console.log(updateObj);
+          updateObj.modifiedCount === 1
+            ? res.json("Update one todo successfully")
+            : res.status(404).json("This todo is not found");
+        }
+      }
+    );
+  });
+  
 app.post("/tasks",(req,res)=>{
     console.log("25:", req.body)
     Todo.create(req.body,(err,newTask)=>{
