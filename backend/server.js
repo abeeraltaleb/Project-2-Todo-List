@@ -9,8 +9,21 @@ app.get("/",(req,res)=>{
     res.json("get is working")
 })
 
-app.get("/tasks",(req,res)=>{
+//CRUD: Create , Read , Update , Delete 
+app .get("/tasks",(req,res)=>{
     Todo.find({},(err,data)=>{
+        if(err){
+            console.log("ERRO: ",err);
+        }else{
+            res.json(data)
+        }
+    });  
+});
+
+//          ?key=value&key=value
+app.get("/filter",(req,res)=>{
+    console.log(req.query);
+    Todo.find({isCompleteted:req.query.isCompleteted},(err,data)=>{
         if(err){
             console.log("ERRO: ",err);
         }else{
@@ -18,6 +31,30 @@ app.get("/tasks",(req,res)=>{
         }
     });
 });
+
+/*
+the up endpoint is replace to these two
+app .get("/tasks/done",(req,res)=>{
+    Todo.find({isCompleteted:true},(err,data)=>{
+        if(err){
+            console.log("ERRO: ",err);
+        }else{
+            res.json(data)
+        }
+    });
+});
+
+app.get("/tasks/pending",(req,res)=>{
+    Todo.find({isCompleteted:false},(err,data)=>{
+        if(err){
+            console.log("ERRO: ",err);
+        }else{
+            res.json(data)
+        }
+    });
+});
+*/
+
 app.post("/tasks",(req,res)=>{
     console.log("25:", req.body)
     Todo.create(req.body,(err,newTask)=>{
@@ -37,7 +74,7 @@ app.post("/tasks",(req,res)=>{
             console.log("ERROR: ",err);
         }else{
             deleteObj.deletedCount===1
-            ?res.json("Deleted New one Todo Successfully")
+            ? res.json("Deleted New one Todo Successfully")
             : res.status(404).json ("this todo is not found")
         }
   })
@@ -51,10 +88,10 @@ app.post("/tasks",(req,res)=>{
         {_id:req.params.id},
         {title:req.body.newTitle},
         (err,updateObj)=>{
-           if (err) {
-        console.log("ERROR: ",err);
+        if (err) {
+        //console.log("ERROR: ",err);
         res.status(400).json(err)
-         }else{
+        }else{
           console.log(updateObj);
           updateObj.modifiedCount===1
           ? res.json("update New one Todo Successfully")
