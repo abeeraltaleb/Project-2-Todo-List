@@ -29,6 +29,41 @@ app.post("/tasks",(req,res)=>{
     });
 });
 
+  app.delete("/tasks/:id",(req,res)=>{
+      console.log("37:", req.params.id);
+      Todo.deleteOne({_id:req.params.id},(err,deleteObj)=>{
+          
+        if (err) {
+            console.log("ERROR: ",err);
+        }else{
+            deleteObj.deletedCount===1
+            ?res.json("Deleted New one Todo Successfully")
+            : res.status(404).json ("this todo is not found")
+        }
+  })
+      // deleted at most one tank document
+
+  });
+
+  app.put("/tasks/:id",(req,res)=>{
+    //console.log("37:", req.params.id);
+    Todo.updateOne(
+        {_id:req.params.id},
+        {title:req.body.newTitle},
+        (err,updateObj)=>{
+           if (err) {
+        console.log("ERROR: ",err);
+        res.status(400).json(err)
+         }else{
+          console.log(updateObj);
+          updateObj.modifiedCount===1
+          ? res.json("update New one Todo Successfully")
+          : res.status(404).json ("this todo is not found");
+      }
+})
+    // update at most one tank document
+
+});
 app.listen(5000,()=>{
-    console.log("server is working")
+    console.log("server is working....")
 });
