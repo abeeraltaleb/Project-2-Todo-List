@@ -1,16 +1,20 @@
-const express=require('express')
-const app=express()
-const db=require ('./db')
-const Todo=require ('./todo')
+const express=require('express');
+const cors=require('cors');
+const app=express();
+
+const db=require ('./db');
+const Todo=require ('./todo');
 //console.log(Todo);
-app.use(express.json())
+app.use(express.json());
+app.use(cors());
+
 
 app.get("/",(req,res)=>{
     res.json("get is working")
 })
 
 //CRUD: Create , Read , Update , Delete 
-app .get("/tasks",(req,res)=>{
+app.get("/tasks",(req,res)=>{
     Todo.find({},(err,data)=>{
         if(err){
             console.log("ERRO: ",err);
