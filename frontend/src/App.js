@@ -1,11 +1,14 @@
-import React, {useState} from "react";
+import React, {useState,useEffect} from "react";
 import "./App.css";
+import Todo from "./components/Todo"
 import axios from "axios";
-
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
 
+  useEffect(() => {
+    getData();
+  }, [])
   const getData = () => {
     // should bring data using axios
     // from backend (GET /tasks)
@@ -21,9 +24,9 @@ export default function App() {
       });
   };
 
-  const mapOverTasks =tasks.map((taskObj,i)=>{
-    return <p>{taskObj.title}</p>
-  })
+  const mapOverTasks =tasks.map((taskObj,i)=>(
+  <Todo key={i} task={taskObj}/>
+  ));
 
   return (
     <div className="App">
@@ -31,7 +34,7 @@ export default function App() {
       {/* when click on this button 
       should call function bring Data */}
       <button onClick={getData}>GET TASKS</button>
-      {mapOverTasks}
+      {mapOverTasks} 
     </div>
   );
 }
