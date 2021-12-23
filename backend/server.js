@@ -47,7 +47,6 @@ app .get("/tasks/done",(req,res)=>{
         }
     });
 });
-
 app.get("/tasks/pending",(req,res)=>{
     Todo.find({isCompleted:false},(err,data)=>{
         if(err){
