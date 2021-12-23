@@ -60,8 +60,28 @@ export default function App() {
       console.log("ERR: ", err);
     });
   };
+
+
+  const toggleTodo = (id, newStatus) => {
+    axios
+      .put(`http://localhost:5000/tasks/${id}/${newStatus}`)
+      .then((response) => {
+        // console.log('RESPONSE: ', response);
+        console.log("DATA: ", response.data);
+        getData();
+        // change react hooks state using spread operator
+      })
+      .catch((err) => {
+        console.log("ERR: ", err);
+      });
+  };
   const mapOverTasks =tasks.map((taskObj,i)=>(
-  <Todo key={i} task={taskObj} deleteTodo={deleteTodo}/>
+  <Todo
+   key={i}
+   task={taskObj} 
+   deleteTodo={deleteTodo}
+   toggleTodo={toggleTodo}
+   />
   ));
 
   return (
