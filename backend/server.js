@@ -4,6 +4,8 @@ const app=express();
 
 const db=require ('./db');
 const Todo=require ('./todo');
+const User=require ('./user');
+
 //console.log(Todo);
 app.use(express.json());
 app.use(cors());
@@ -128,15 +130,57 @@ app.post("/tasks",(req,res)=>{
         //console.log("ERROR: ",err);
         res.status(400).json(err)
         }else{
-          console.log(updateObj);
-          updateObj.modifiedCount===1
-          ? res.json("update New one Todo Successfully")
-          : res.status(404).json ("this todo is not found");
-      }
+            console.log(updateObj);
+            updateObj.modifiedCount===1
+            ? res.json("update New one Todo Successfully")
+            : res.status(404).json ("this todo is not found");
+        }
 })
     // update at most one tank document
 
 });
+
+//USER
+app.post("/users/register",(req,res)=>{
+    User.create(req.body,(err,newUser)=>{
+        if(err){
+           //console.log("ERRO: ",err);
+            res.status(400).json({message:"This email already taken"})
+
+        }else{
+            res.status(201).json({ message: "Create New User Successfully" });
+        }
+    });
+});
+
+app.post("/users/login", (req, res) => {
+    User.find({ email: req.body.email }, (err, arrUserFound) => {
+        if (err) {
+        console.log("ERROR: ", err);
+        } else {
+        // console.log(arrUserFound);
+        if (arrUserFound.length === 1) {
+          // we found the user
+            if (req.body.password === arrUserFound[0].password) {
+            // password correct
+            res.status(200).json({
+                message: "Login Successfully",
+                username: arrUserFound[0].username,
+            });
+            } else {
+            // password incorrect
+            res.status(400).json({
+                message: "Wrong password",
+            });
+            }
+        } else {
+            res.status(404).json({
+            message: "The email entered is not registered",
+            });
+        }
+        }
+    });
+  });
 app.listen(5000,()=>{
     console.log("server is working....")
 });

@@ -116,19 +116,19 @@ export default function App() {
 
   return (
     <div className="App">
-      <p>app</p>
+      <p className="h1">Todo List</p>
       {/* when click on this button 
       should call function bring Data */}
-      <button onClick={getData}>GET TASKS</button>
-      <button onClick={deleteTasks}>DELETE Completed tasks </button>
-      <button
+      <button onClick={getData} >GET TASKS</button>
+      <button onClick={deleteTasks} >DELETE Completed tasks </button>
+      <button  
         onClick={() => {
           filterData(true);
         }}
       >
         GET DONE
       </button>
-      <button
+      <button  
         onClick={() => {
           filterData(false);
         }}
