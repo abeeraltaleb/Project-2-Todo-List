@@ -2,6 +2,7 @@ import React, {useState,useEffect} from "react";
 import "./App.css";
 import Todo from "./components/Todo"
 import Add from "./components/Add"
+import Register from "./components/Register";
 import axios from "axios";
 
 export default function App() {
@@ -107,11 +108,11 @@ export default function App() {
   };
   const mapOverTasks =tasks.map((taskObj,i)=>(
   <Todo
-   key={taskObj._id}
-   task={taskObj} 
-   deleteTodo={deleteTodo}
-   toggleTodo={toggleTodo}
-   />
+    key={taskObj._id}
+    task={taskObj} 
+    deleteTodo={deleteTodo}
+    toggleTodo={toggleTodo}
+    />
   ));
 
   return (
@@ -135,6 +136,8 @@ export default function App() {
       >
         GET PENDING
       </button>
+      <Register/>
+
       <Add createFunc={postNewTodo}/>
       {mapOverTasks} 
     </div>

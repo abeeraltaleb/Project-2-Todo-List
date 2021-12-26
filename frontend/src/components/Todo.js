@@ -12,7 +12,7 @@ export default function Todo(props) {
             {title}
             </span>         
             <button onClick={()=>{
-              props.deleteTodo(_id)
+            props.deleteTodo(_id)
             }}>x</button> 
         </div>
     )
