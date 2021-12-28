@@ -10,6 +10,8 @@ import Login from "./components/Login";
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     getData();
@@ -120,6 +122,8 @@ export default function App() {
   return (
     <div className="App">
     <p>APP</p>
+    <p>Name: {username}</p>
+
 
     <nav>
     <Link to="/home">Home</Link> {" | "}
@@ -155,7 +159,7 @@ export default function App() {
     </div>
     }
     />
-    <Route path="/login" element={<Login />} />
+    <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} setUsername={setUsername} />} />
     <Route path="/register" element={<Register />} />
     </Routes>
     </div>
