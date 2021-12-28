@@ -1,4 +1,5 @@
 import React, {useState,useEffect} from "react";
+import { Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 import Todo from "./components/Todo"
 import Add from "./components/Add"
@@ -116,33 +117,47 @@ export default function App() {
     toggleTodo={toggleTodo}
     />
   ));
-
   return (
     <div className="App">
-      <p className="h1">Todo List</p>
-      {/* when click on this button 
-      should call function bring Data */}
-      <button onClick={getData} >GET TASKS</button>
-      <button onClick={deleteTasks} >DELETE Completed tasks </button>
-      <button  
-        onClick={() => {
-          filterData(true);
-        }}
-      >
-        GET DONE
-      </button>
-      <button  
-        onClick={() => {
-          filterData(false);
-        }}
-      >
-        GET PENDING
-      </button>
-      <Register/>
-      <Login/>
+    <p>APP</p>
 
-      <Add createFunc={postNewTodo}/>
-      {mapOverTasks} 
+    <nav>
+    <Link to="/home">Home</Link> {" | "}
+    <Link to="/login">Login</Link> {" | "}
+    <Link to="/register">Register</Link>
+    </nav>
+    <br />
+
+    <Routes>
+    <Route
+    path="/home"
+    element={
+    <div className="Home">
+    {/* click on button should bring all Data */}
+    <button onClick={getData}>GET TASKS</button>
+    <button onClick={deleteTasks}>DELETE Completed tasks </button>
+    <button
+    onClick={() => {
+    filterData(true);
+    }}
+    >
+    GET DONE
+    </button>
+    <button
+    onClick={() => {
+    filterData(false);
+    }}
+    >
+    GET PENDING
+    </button>
+    <Add createFunc={postNewTodo} />
+    {mapOverTasks}
+    </div>
+    }
+    />
+    <Route path="/login" element={<Login />} />
+    <Route path="/register" element={<Register />} />
+    </Routes>
     </div>
   );
 }
