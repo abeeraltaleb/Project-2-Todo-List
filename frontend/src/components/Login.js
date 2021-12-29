@@ -56,10 +56,10 @@ return (
       </form> 
       */}
       <form>
-        <div class="form-floating mb-3">
+        <div className="form-floating mb-3">
           <input
             type="email"
-            class="form-control"
+            className="form-control"
             id="floatingInput"
             // placeholder="name@example.com"
             onChange={(e) => {
@@ -67,12 +67,12 @@ return (
             }}
             value={email}
           />
-          <label for="floatingInput">Email address</label>
+          <label htmlFor="floatingInput">Email address</label>
         </div>
-        <div class="mb-3 form-floating">
+        <div className="mb-3 form-floating">
           <input
             type="password"
-            class="form-control"
+            className="form-control"
             id="floatingPassword"
             // placeholder="Write password here ..."
             onChange={(e) => {
@@ -80,7 +80,7 @@ return (
             }}
             value={password}
           />
-          <label for="floatingPassword">Password</label>
+          <label htmlFor="floatingPassword">Password</label>
         </div>
         <div className="text-center">
           <input
