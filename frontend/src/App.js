@@ -126,7 +126,7 @@ export default function App() {
   return (
     <div className="">
       {/* <p>APP</p> */}
-      <p>Name: {username}</p>
+      {/* <p>Name: {username}</p> */}
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light m-3">
         <div className="container-fluid">
