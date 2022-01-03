@@ -10,9 +10,11 @@
   margin: 0px 10px 0px 10px;
 }
 
-.Add, .Register{
+.Add{
   border: green solid 3px;
+  max-width: 75%;
+
 }
-.Login form {
+.Login form  .Register {
   max-width: 75%;
 }
